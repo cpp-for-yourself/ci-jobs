@@ -73,7 +73,9 @@ jobs:
     - name: Run tests
       run: |
         mkdir checker
-        cp -r definitions/inject checker/
+        if [ -e definitions/inject ]
+          cp -r definitions/inject checker/
+        fi
         cp definitions/homework.yml checker/
         cp -r homework/homeworks checker/
         cd checker
