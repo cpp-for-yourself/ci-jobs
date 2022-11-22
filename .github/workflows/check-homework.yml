@@ -57,7 +57,7 @@ jobs:
         ls -lah .github
         ls -lah .github/workflows
         JOB_CONTENT=$(cat .github/workflows/check-homework.yml)
-        EXPECTED_CONTENT=$(cat <<-END                                                                                                ~
+        EXPECTED_CONTENT=$(cat <<-END
         name: CI
 
         on: [pull_request]
