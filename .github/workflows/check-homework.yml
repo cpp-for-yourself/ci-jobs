@@ -71,7 +71,7 @@ jobs:
       with:
         issue-number: ${{ github.event.pull_request.number }}
         comment-author: 'github-actions[bot]'
-        body-includes: With 🧡 from Homework Bot 🤖
+        body-includes: With ❤️ from Homework Bot 🤖
     - name: Update comment with test results
       uses: peter-evans/create-or-update-comment@v1
       with:
@@ -83,26 +83,6 @@ jobs:
 
           # How to fix 🧐
           Please replace your [`check-homework.yml`]() file with the [`check-homework.yml`](https://github.com/cpp-for-yourself/homeworks/blob/main/.github/workflows/check-homework.yml) from the template repository.
-          ---
-
-          With 🧡 from Homework Bot 🤖
-        edit-mode: replace
-    - name: Find progress comment
-      uses: peter-evans/find-comment@v1
-      id: progress
-      with:
-        issue-number: ${{ github.event.pull_request.number }}
-        comment-author: 'github-actions[bot]'
-        body-includes: With ❤️ from Homework Bot 🤖
-    - name: Update comment with test results
-      uses: peter-evans/create-or-update-comment@v1
-      with:
-        comment-id: ${{ steps.progress.outputs.comment-id }}
-        issue-number: ${{ github.event.pull_request.number }}
-        body: |
-          # Something went wrong with the job
-
-          Please check out other comments in this PR for hints or open [an issue here](https://github.com/cpp-for-yourself/homeworks/issues/new/choose) if you're stuck.
 
           ---
 
