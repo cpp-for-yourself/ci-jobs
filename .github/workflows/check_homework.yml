@@ -10,6 +10,7 @@ on:
 
 jobs:
   add_progress_bar_comment:
+    name: Add progress bar
     runs-on: ubuntu-latest
     steps:
     - name: Find Comment
@@ -44,9 +45,34 @@ jobs:
 
           With ❤️ from Homework Bot 🤖
 
-  # TODO(add a check for the yaml job being valid)
+  check_job_correctness:
+    name: Check job setup
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout homework repo
+      uses: actions/checkout@v3
+    - name: Check job contents
+      run: |
+        JOB_CONTENT=`cat .github/workflows/check-homework.yml`
+        EXPECTED_CONTENT=$(cat <<-END                                                                                                ~
+        name: CI
+
+        on: [pull_request]
+
+        jobs:
+          run_all_tests:
+            name: Run all tests
+            uses: cpp-for-yourself/ci-jobs/.github/workflows/check_homework.yml@reusable-job
+
+        END
+        if [ "${JOB_CONTENT}" != "${EXPECTED_CONTENT}" ]; then
+          echo "Strings are not equal."
+          false
+        fi
 
   check_homework:
+    name: Check homeworks
+    needs: check_job_correctness
     runs-on: ubuntu-latest
     steps:
     - name: Check git version
@@ -87,6 +113,7 @@ jobs:
         path: checker/results.md
 
   upload_results_as_comment:
+    name: Add results to the PR comment
     needs: check_homework
     runs-on: ubuntu-latest
     steps:
@@ -116,6 +143,7 @@ jobs:
 
   upload_results_to_wiki:
     needs: check_homework
+    name: Upload results to the wiki
     runs-on: ubuntu-latest
     steps:
     - name: Download result md file
