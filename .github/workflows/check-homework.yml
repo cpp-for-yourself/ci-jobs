@@ -63,7 +63,7 @@ jobs:
         echo "Job contents are equal."
 
   comment_about_incorrect_job:
-    name: Comment about incorrect job
+    name: Comment if job definition is incorrect
     runs-on: ubuntu-latest
     needs: check_job_correctness
     if: failure()
