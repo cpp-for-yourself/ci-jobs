@@ -65,6 +65,7 @@ jobs:
             uses: cpp-for-yourself/ci-jobs/.github/workflows/check_homework.yml@reusable-job
 
         END
+        )
         if [ "${JOB_CONTENT}" != "${EXPECTED_CONTENT}" ]; then
           echo "Strings are not equal."
           false
