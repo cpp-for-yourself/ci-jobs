@@ -81,8 +81,9 @@ jobs:
           # ‼️ Job is not set up correctly ‼️
           This happens because you were early with the course and @niosus had to make some changes to the homework checker job in the template repository. If you have any questions, just ping him or open [an issue](https://github.com/cpp-for-yourself/homeworks/issues/new/choose).
 
-          # How to fix 🧐
-          Please replace your [`check-homework.yml`]() file with the [`check-homework.yml`](https://github.com/cpp-for-yourself/homeworks/blob/main/.github/workflows/check-homework.yml) from the template repository.
+          ### How to fix 🧐
+
+          Please replace [your `check-homework.yml`](${{ github.server_url }}/${{ github.repository }}/blob/${{ github.ref_name }}/.github/workflows/check-homework.yml) file with the [`check-homework.yml` from the template repository](https://github.com/cpp-for-yourself/homeworks/blob/main/.github/workflows/check-homework.yml).
 
           ---
 
