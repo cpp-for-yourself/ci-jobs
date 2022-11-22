@@ -53,7 +53,7 @@ jobs:
       uses: actions/checkout@v3
     - name: Check job contents
       run: |
-        JOB_CONTENT=`cat .github/workflows/check-homework.yml`
+        JOB_CONTENT=$(cat .github/workflows/check-homework.yml)
         EXPECTED_CONTENT=$(cat <<-END                                                                                                ~
         name: CI
 
