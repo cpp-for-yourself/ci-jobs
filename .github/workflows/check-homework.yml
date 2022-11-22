@@ -51,6 +51,8 @@ jobs:
           run_all_tests:
             name: Run all tests
             uses: cpp-for-yourself/ci-jobs/.github/workflows/check-homework.yml@reusable-job
+            with:
+              homework-definitions-branch: ${{ inputs.homework-definitions-branch }}
 
         END
         )
@@ -84,7 +86,7 @@ jobs:
 
           ### How to fix 🧐
 
-          Please replace [your `check-homework.yml`](${{ github.server_url }}/${{ github.repository }}/blob/${{ github.head_ref }}/.github/workflows/check-homework.yml) file with the [`check-homework.yml` from the template repository](https://github.com/cpp-for-yourself/homeworks/blob/main/.github/workflows/check-homework.yml).
+          Please replace [your `check-homework.yml`](${{ github.server_url }}/${{ github.repository }}/blob/${{ github.head_ref }}/.github/workflows/check-homework.yml) file with the [`check-homework.yml` from the template repository](https://github.com/cpp-for-yourself/homeworks/blob/main/.github/workflows/check-homework.yml) within this PR. Then the job will succeed.
 
           ---
 
