@@ -6,6 +6,9 @@ on:
       homework-definitions-branch:
         required: true
         type: string
+      ci-jobs-branch:
+        required: true
+        type: string
       homework-checker-version:
         required: true
         type: string
@@ -53,9 +56,10 @@ jobs:
         jobs:
           run_all_tests:
             name: Run all tests
-            uses: cpp-for-yourself/ci-jobs/.github/workflows/check-homework.yml@main
+            uses: cpp-for-yourself/ci-jobs/.github/workflows/check-homework.yml@${{ inputs.ci-jobs-branch }}
             with:
               homework-definitions-branch: ${{ inputs.homework-definitions-branch }}
+              ci-jobs-branch: ${{ inputs.ci-jobs-branch }}
               homework-checker-version: ${{ inputs.homework-checker-version }}
 
         END
