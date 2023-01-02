@@ -118,7 +118,7 @@ jobs:
         architecture: 'x64'
     - name: Install prerequisites
       run: |
-        python -m pip install --upgrade pip pipenv ruamel.yaml schema homework-checker
+        python -m pip install --upgrade pip pipenv ruamel.yaml schema homework-checker==1.2.0
     - name: Run tests
       run: |
         mkdir checker
