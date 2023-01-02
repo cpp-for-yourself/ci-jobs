@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Find Comment
-      uses: peter-evans/find-comment@v1
+      uses: peter-evans/find-comment@v2
       id: fc
       with:
         issue-number: ${{ github.event.pull_request.number }}
@@ -27,7 +27,7 @@ jobs:
         body-includes: With ❤️ from Homework Bot 🤖
     - name: Create or update comment
       if: steps.fc.outputs.comment-id != ''
-      uses: peter-evans/create-or-update-comment@v1
+      uses: peter-evans/create-or-update-comment@v2
       with:
         comment-id: ${{ steps.fc.outputs.comment-id }}
         edit-mode: replace
@@ -77,14 +77,14 @@ jobs:
     if: failure()
     steps:
     - name: Find Comment
-      uses: peter-evans/find-comment@v1
+      uses: peter-evans/find-comment@v2
       id: fc
       with:
         issue-number: ${{ github.event.pull_request.number }}
         comment-author: 'github-actions[bot]'
         body-includes: With ❤️ from Homework Bot 🤖
     - name: Update comment with test results
-      uses: peter-evans/create-or-update-comment@v1
+      uses: peter-evans/create-or-update-comment@v2
       with:
         comment-id: ${{ steps.fc.outputs.comment-id }}
         issue-number: ${{ github.event.pull_request.number }}
@@ -158,14 +158,14 @@ jobs:
       with:
         template: results.md
     - name: Find Comment
-      uses: peter-evans/find-comment@v1
+      uses: peter-evans/find-comment@v2
       id: fc
       with:
         issue-number: ${{ github.event.pull_request.number }}
         comment-author: 'github-actions[bot]'
         body-includes: With ❤️ from Homework Bot 🤖
     - name: Update comment with test results
-      uses: peter-evans/create-or-update-comment@v1
+      uses: peter-evans/create-or-update-comment@v2
       with:
         comment-id: ${{ steps.fc.outputs.comment-id }}
         issue-number: ${{ github.event.pull_request.number }}
@@ -182,7 +182,7 @@ jobs:
       with:
         name: homework_result
     - name: Find Comment
-      uses: peter-evans/find-comment@v1
+      uses: peter-evans/find-comment@v2
       id: fc
       with:
         issue-number: ${{ github.event.pull_request.number }}
@@ -208,7 +208,7 @@ jobs:
         git commit -m "Update results" --allow-empty
         git push
     - name: Comment on wiki access failure
-      uses: peter-evans/create-or-update-comment@v1
+      uses: peter-evans/create-or-update-comment@v2
       if: failure()
       with:
         comment-id: ${{ steps.fc.outputs.comment-id }}
@@ -225,7 +225,7 @@ jobs:
           With 💙 from Homework Bot 🤖
         edit-mode: replace
     - name: Comment on wiki access success
-      uses: peter-evans/create-or-update-comment@v1
+      uses: peter-evans/create-or-update-comment@v2
       if: success()
       with:
         comment-id: ${{ steps.fc.outputs.comment-id }}
