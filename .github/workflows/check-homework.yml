@@ -6,6 +6,12 @@ on:
       homework-definitions-branch:
         required: true
         type: string
+      ci-jobs-branch:
+        required: true
+        type: string
+      homework-checker-version:
+        required: true
+        type: string
 
 jobs:
   add_progress_bar_comment:
@@ -50,9 +56,11 @@ jobs:
         jobs:
           run_all_tests:
             name: Run all tests
-            uses: cpp-for-yourself/ci-jobs/.github/workflows/check-homework.yml@main
+            uses: cpp-for-yourself/ci-jobs/.github/workflows/check-homework.yml@${{ inputs.ci-jobs-branch }}
             with:
               homework-definitions-branch: ${{ inputs.homework-definitions-branch }}
+              ci-jobs-branch: ${{ inputs.ci-jobs-branch }}
+              homework-checker-version: ${{ inputs.homework-checker-version }}
 
         END
         )
@@ -118,7 +126,7 @@ jobs:
         architecture: 'x64'
     - name: Install prerequisites
       run: |
-        python -m pip install --upgrade pip pipenv ruamel.yaml schema homework-checker==1.2.0
+        python -m pip install --upgrade pip pipenv ruamel.yaml schema homework-checker==${{ inputs.homework-checker-version }}
     - name: Run tests
       run: |
         mkdir checker
