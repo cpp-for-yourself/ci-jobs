@@ -54,11 +54,9 @@ jobs:
         jobs:
           run_all_tests:
             name: Run all tests
-            uses: cpp-for-yourself/ci-jobs/.github/workflows/check-homework.yml@${{ inputs.ci-jobs-branch }}
+            uses: cpp-for-yourself/ci-jobs/.github/workflows/check-homework.yml@${{ github.head_ref || github.ref_name }}
             with:
               homework-definitions-branch: ${{ inputs.homework-definitions-branch }}
-              ci-jobs-branch: ${{ inputs.ci-jobs-branch }}
-              homework-checker-version: ${{ inputs.homework-checker-version }}
 
         END
         )
