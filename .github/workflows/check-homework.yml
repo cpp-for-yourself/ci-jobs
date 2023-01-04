@@ -6,11 +6,9 @@ on:
       homework-definitions-branch:
         required: true
         type: string
-      ci-jobs-branch:
-        required: true
-        type: string
       homework-checker-version:
-        required: true
+        required: false
+        default: 2.0.0
         type: string
 
 jobs:
