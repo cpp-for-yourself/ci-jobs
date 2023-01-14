@@ -24,8 +24,8 @@ jobs:
         comment-author: 'github-actions[bot]'
         body-includes: With ❤️ from Homework Bot 🤖
     - name: Create or update comment
-      if: steps.fc.outputs.comment-id != ''
       uses: peter-evans/create-or-update-comment@v2
+      id: fc
       with:
         comment-id: ${{ steps.fc.outputs.comment-id }}
         edit-mode: replace
@@ -126,13 +126,10 @@ jobs:
     - name: Run tests
       run: |
         mkdir checker
-        if [ -e definitions/inject ]; then
-          cp -r definitions/inject checker/
-        fi
-        cp definitions/homework.yml checker/
+        cp -r definitions checker/
         cp -r homework/homeworks checker/
         cd checker
-        check_homework -v -i homework.yml -o results.md
+        check_homework -v -i definitions/homework.yml -o results.md
     - name: Upload result md file
       uses: actions/upload-artifact@v2
       with:
