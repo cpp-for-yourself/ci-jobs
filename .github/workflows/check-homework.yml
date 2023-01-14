@@ -54,10 +54,9 @@ jobs:
         jobs:
           run_all_tests:
             name: Run all tests
-            uses: cpp-for-yourself\/ci-jobs\/\.github\/workflows\/check-homework\.yml@[\w\-]+
+            uses: cpp-for-yourself/ci-jobs/\.github/workflows/check-homework\.yml@.+
             with:
-              homework-definitions-branch:\s[\w\-]+
-        (?:\s+homework-checker-version:\s*${{ inputs.homework-checker-version }})*\s*
+              homework-definitions-branch: .*
         END
         )
         if [[ "${JOB_CONTENT}" =~ "${EXPECTED_CONTENT_REGEX}" ]]; then
