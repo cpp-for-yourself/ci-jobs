@@ -25,7 +25,6 @@ jobs:
         body-includes: With ❤️ from Homework Bot 🤖
     - name: Create or update comment
       uses: peter-evans/create-or-update-comment@v2
-      id: fc
       with:
         comment-id: ${{ steps.fc.outputs.comment-id }}
         edit-mode: replace
