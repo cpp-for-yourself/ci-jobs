@@ -59,7 +59,7 @@ jobs:
               homework-definitions-branch: .*
         END
         )
-        if ! [[ "${JOB_CONTENT}" =~ "${EXPECTED_CONTENT_REGEX}" ]]; then
+        if ! [[ ${JOB_CONTENT} =~ ${EXPECTED_CONTENT_REGEX} ]]; then
           echo "Job content:
           -----------------------------
           ${JOB_CONTENT}
