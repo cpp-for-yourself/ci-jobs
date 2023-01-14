@@ -54,25 +54,24 @@ jobs:
         jobs:
           run_all_tests:
             name: Run all tests
-            uses: cpp-for-yourself/ci-jobs/\.github/workflows/check-homework\.yml@.+
+            uses: cpp-for-yourself\/ci-jobs\/\.github\/workflows\/check-homework\.yml@.+
             with:
               homework-definitions-branch: .*
         END
         )
-        if [[ "${JOB_CONTENT}" =~ "${EXPECTED_CONTENT_REGEX}" ]]; then
-          echo "Job contents are matching."
-          exit 0
+        if ! [[ "${JOB_CONTENT}" =~ "${EXPECTED_CONTENT_REGEX}" ]]; then
+          echo "Job content:
+          -----------------------------
+          ${JOB_CONTENT}
+          -----------------------------
+          is not matching a regex:
+          -----------------------------
+          ${EXPECTED_CONTENT_REGEX}
+          -----------------------------
+          "
+          exit 1
         fi
-        echo "Job content:
-        -----------------------------
-        ${JOB_CONTENT}
-        -----------------------------
-        is not matching a regex:
-        -----------------------------
-        ${EXPECTED_CONTENT_REGEX}
-        -----------------------------
-        "
-        exit 1
+        echo "Job contents are matching."
 
   comment_about_incorrect_job:
     name: Comment if job definition is incorrect
