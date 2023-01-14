@@ -46,19 +46,7 @@ jobs:
     - name: Check job contents
       run: |
         JOB_CONTENT=$(cat .github/workflows/check-homework.yml)
-        EXPECTED_CONTENT_REGEX=$(cat <<-END
-        name: CI
-
-        on: \[pull_request\]
-
-        jobs:
-          run_all_tests:
-            name: Run all tests
-            uses: cpp-for-yourself\/ci-jobs\/\.github\/workflows\/check-homework\.yml@[\w\-]+
-            with:
-              homework-definitions-branch:\s[\w\-]+(?:\n      homework-checker-version:\s\d+\.\d+\.\d+)*\s*
-        END
-        )
+        EXPECTED_CONTENT_REGEX=$(cat expected_job_regex.yml)
         if [[ "${JOB_CONTENT}" =~ "${EXPECTED_CONTENT_REGEX}" ]]; then
           echo "Job contents are matching."
           exit 0
