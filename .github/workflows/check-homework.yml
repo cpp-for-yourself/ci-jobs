@@ -54,13 +54,13 @@ jobs:
         jobs:
           run_all_tests:
             name: Run all tests
-            uses: cpp-for-yourself/ci-jobs/.github/workflows/check-homework.yml@main
+            uses: cpp-for-yourself/ci-jobs/.github/workflows/check-homework.yml@$*
             with:
               homework-definitions-branch: ${{ inputs.homework-definitions-branch }}
 
         END
         )
-        if [ "${JOB_CONTENT}" != "${EXPECTED_CONTENT}" ]; then
+        if [[ "${JOB_CONTENT}" != "${EXPECTED_CONTENT}" ]]; then
           echo "Job contents are NOT equal."
           exit 1
         fi
