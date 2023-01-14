@@ -24,10 +24,10 @@ jobs:
         comment-author: 'github-actions[bot]'
         body-includes: With ❤️ from Homework Bot 🤖
     - name: Create or update comment
-      if: steps.fc.outputs.comment-id != ''
       uses: peter-evans/create-or-update-comment@v2
       with:
         comment-id: ${{ steps.fc.outputs.comment-id }}
+        issue-number: ${{ github.event.pull_request.number }}
         edit-mode: replace
         body: |
           ## Tests are running! Please wait!
@@ -46,25 +46,32 @@ jobs:
     - name: Check job contents
       run: |
         JOB_CONTENT=$(cat .github/workflows/check-homework.yml)
-        EXPECTED_CONTENT=$(cat <<-END
+        EXPECTED_CONTENT_REGEX=$(cat <<-END
         name: CI
 
-        on: [pull_request]
+        on: \[pull_request\]
 
         jobs:
           run_all_tests:
             name: Run all tests
-            uses: cpp-for-yourself/ci-jobs/.github/workflows/check-homework.yml@main
+            uses: cpp-for-yourself\/ci-jobs\/\.github\/workflows\/check-homework\.yml@.+
             with:
-              homework-definitions-branch: ${{ inputs.homework-definitions-branch }}
-
+              homework-definitions-branch: .*
         END
         )
-        if [ "${JOB_CONTENT}" != "${EXPECTED_CONTENT}" ]; then
-          echo "Job contents are NOT equal."
+        if ! [[ ${JOB_CONTENT} =~ ${EXPECTED_CONTENT_REGEX} ]]; then
+          echo "Job content:
+          -----------------------------
+          ${JOB_CONTENT}
+          -----------------------------
+          is not matching a regex:
+          -----------------------------
+          ${EXPECTED_CONTENT_REGEX}
+          -----------------------------
+          "
           exit 1
         fi
-        echo "Job contents are equal."
+        echo "Job contents are matching."
 
   comment_about_incorrect_job:
     name: Comment if job definition is incorrect
@@ -126,13 +133,10 @@ jobs:
     - name: Run tests
       run: |
         mkdir checker
-        if [ -e definitions/inject ]; then
-          cp -r definitions/inject checker/
-        fi
-        cp definitions/homework.yml checker/
+        cp -r definitions checker/
         cp -r homework/homeworks checker/
         cd checker
-        check_homework -v -i homework.yml -o results.md
+        check_homework -v -i definitions/homework.yml -o results.md
     - name: Upload result md file
       uses: actions/upload-artifact@v2
       with:
