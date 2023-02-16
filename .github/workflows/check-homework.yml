@@ -10,6 +10,11 @@ on:
         required: false
         default: 2.0.0
         type: string
+    permissions:
+      checks: write
+      contents: write
+      issues: write
+      pull-requests: write
 
 jobs:
   add_progress_bar_comment:
