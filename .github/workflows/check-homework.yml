@@ -55,6 +55,7 @@ jobs:
           run_all_tests:
             name: Run all tests
             uses: cpp-for-yourself\/ci-jobs\/\.github\/workflows\/check-homework\.yml@.+
+            permissions: write-all
             with:
               homework-definitions-branch: .*
         END
