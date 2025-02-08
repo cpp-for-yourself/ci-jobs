@@ -17,14 +17,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Find Comment
-      uses: peter-evans/find-comment@v2
+      uses: peter-evans/find-comment@v3
       id: fc
       with:
         issue-number: ${{ github.event.pull_request.number }}
         comment-author: 'github-actions[bot]'
         body-includes: With ❤️ from Homework Bot 🤖
     - name: Create or update comment
-      uses: peter-evans/create-or-update-comment@v2
+      uses: peter-evans/create-or-update-comment@v4
       with:
         comment-id: ${{ steps.fc.outputs.comment-id }}
         issue-number: ${{ github.event.pull_request.number }}
@@ -42,7 +42,7 @@ jobs:
     needs: add_progress_bar_comment
     steps:
     - name: Checkout homework repo
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
     - name: Check job contents
       run: |
         JOB_CONTENT=$(cat .github/workflows/check-homework.yml)
@@ -54,7 +54,7 @@ jobs:
         jobs:
           run_all_tests:
             name: Run all tests
-            uses: cpp-for-yourself\/ci-jobs\/\.github\/workflows\/check-homework\.yml@.+
+            uses: dheerubhai-101\/ci-jobs\/\.github\/workflows\/check-homework\.yml@.+
             permissions:
               contents: write
               pull-requests: write
@@ -83,14 +83,14 @@ jobs:
     if: failure()
     steps:
     - name: Find Comment
-      uses: peter-evans/find-comment@v2
+      uses: peter-evans/find-comment@v3
       id: fc
       with:
         issue-number: ${{ github.event.pull_request.number }}
         comment-author: 'github-actions[bot]'
         body-includes: With ❤️ from Homework Bot 🤖
     - name: Update comment with test results
-      uses: peter-evans/create-or-update-comment@v2
+      uses: peter-evans/create-or-update-comment@v4
       with:
         comment-id: ${{ steps.fc.outputs.comment-id }}
         issue-number: ${{ github.event.pull_request.number }}
@@ -115,18 +115,18 @@ jobs:
     - name: Check git version
       run: git --version
     - name: Checkout this homework
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         path: homework
         submodules: recursive
     - name: Checkout homework definitions
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         repository: cpp-for-yourself/homework-definitions
         path: definitions
         ref: ${{ inputs.homework-definitions-branch }}
     - name: Set up Python
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v5
       with:
         python-version: '3.8'
         architecture: 'x64'
@@ -141,7 +141,7 @@ jobs:
         cd checker
         check_homework -v -i definitions/homework.yml -o results.md
     - name: Upload result md file
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: homework_result
         path: checker/results.md
@@ -152,7 +152,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Download result md file
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v4
       with:
         name: homework_result
     - name: Render template
@@ -161,14 +161,14 @@ jobs:
       with:
         template: results.md
     - name: Find Comment
-      uses: peter-evans/find-comment@v2
+      uses: peter-evans/find-comment@v3
       id: fc
       with:
         issue-number: ${{ github.event.pull_request.number }}
         comment-author: 'github-actions[bot]'
         body-includes: With ❤️ from Homework Bot 🤖
     - name: Update comment with test results
-      uses: peter-evans/create-or-update-comment@v2
+      uses: peter-evans/create-or-update-comment@v4
       with:
         comment-id: ${{ steps.fc.outputs.comment-id }}
         issue-number: ${{ github.event.pull_request.number }}
@@ -181,18 +181,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Download result md file
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v4
       with:
         name: homework_result
     - name: Find Comment
-      uses: peter-evans/find-comment@v2
+      uses: peter-evans/find-comment@v3
       id: fc
       with:
         issue-number: ${{ github.event.pull_request.number }}
         comment-author: 'github-actions[bot]'
         body-includes: With 💙 from Homework Bot 🤖
     - name: Checkout wiki
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         repository: ${{ github.repository }}.wiki
         path: wiki
@@ -211,7 +211,7 @@ jobs:
         git commit -m "Update results" --allow-empty
         git push
     - name: Comment on wiki access failure
-      uses: peter-evans/create-or-update-comment@v2
+      uses: peter-evans/create-or-update-comment@v4
       if: failure()
       with:
         comment-id: ${{ steps.fc.outputs.comment-id }}
@@ -228,7 +228,7 @@ jobs:
           With 💙 from Homework Bot 🤖
         edit-mode: replace
     - name: Comment on wiki access success
-      uses: peter-evans/create-or-update-comment@v2
+      uses: peter-evans/create-or-update-comment@v4
       if: success()
       with:
         comment-id: ${{ steps.fc.outputs.comment-id }}
