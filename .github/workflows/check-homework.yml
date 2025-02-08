@@ -54,7 +54,7 @@ jobs:
         jobs:
           run_all_tests:
             name: Run all tests
-            uses: cpp-for-yourself\/ci-jobs\/\.github\/workflows\/check-homework\.yml@.+
+            uses: dheerubhai-101\/ci-jobs\/\.github\/workflows\/check-homework\.yml@.+
             permissions:
               contents: write
               pull-requests: write
