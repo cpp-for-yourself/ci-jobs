@@ -141,7 +141,7 @@ jobs:
         cd checker
         check_homework -v -i definitions/homework.yml -o results.md
     - name: Upload result md file
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: homework_result
         path: checker/results.md
